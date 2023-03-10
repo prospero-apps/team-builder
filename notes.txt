@@ -1,3 +1,14 @@
+Team Builder is a web applications that you can use to communicate with
+other people (both individual and group conversations). The goal of the 
+app is to enable people interested in sports to get in touch with other
+people also interested in the same discipline and based in the same location
+so that they can build teams.
+
+Technologies used:
+
+Next.js
+Prisma
+
 1) Install Next.js and create the client and server folders 
 
 We're going to use the Next.js framework with TypeScript. 
@@ -20,3 +31,14 @@ TODO: Change these two URIs after deployment.
 
 Create the env file in the client folder and store the client ID and 
 client secret from Google Cloud Console in it.
+
+4) Install Prisma and configure NextAuth.js to use the Prisma adapter
+
+Prisma will be used to communicate with the database. In order to configure
+NextAuth.js to use the Prisma adapter, we'll add: 
+- the lib/prismadb.ts file with our Prisma Client,
+- the auth/[...nextauth].ts file in pages/api in the client.
+
+We'll add the configuration code from the documentation.
+
+
