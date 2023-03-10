@@ -1,0 +1,22 @@
+1) Install Next.js and create the client and server folders 
+
+We're going to use the Next.js framework with TypeScript. 
+The team-builder repository will contain two folders: client 
+and server.
+
+2) Remove the styles folder and all style references
+
+We don't need the style files because we're going to use Chakra UI 
+for styling, so the styles folder and all references to it can be
+deleted.
+
+3) Create app in Google Cloud Console and store the environment variables 
+from it in an .env file
+
+For development, under Credentials, set Authorized JavaScript origins to http://localhost:3000
+and Authorized redirect URIs to http://localhost:3000/api/auth/callback/google.
+
+TODO: Change these two URIs after deployment.
+
+Create the env file in the client folder and store the client ID and 
+client secret from Google Cloud Console in it.
