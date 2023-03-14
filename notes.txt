@@ -9,19 +9,21 @@ Technologies used:
 Next.js
 Prisma
 
-1) Install Next.js and create the client and server folders 
+1) (client) Install Next.js and create the client and server folders 
 
 We're going to use the Next.js framework with TypeScript. 
 The team-builder repository will contain two folders: client 
 and server.
 
-2) Remove the styles folder and all style references
+
+2) (client) Remove the styles folder and all style references
 
 We don't need the style files because we're going to use Chakra UI 
 for styling, so the styles folder and all references to it can be
 deleted.
 
-3) Create app in Google Cloud Console and store the environment variables 
+
+3) (client) Create app in Google Cloud Console and store the environment variables 
 from it in an .env file
 
 For development, under Credentials, set Authorized JavaScript origins to http://localhost:3000
@@ -32,7 +34,8 @@ TODO: Change these two URIs after deployment.
 Create the env file in the client folder and store the client ID and 
 client secret from Google Cloud Console in it.
 
-4) Install Prisma and configure NextAuth.js to use the Prisma adapter
+
+4) (client) Install Prisma and configure NextAuth.js to use the Prisma adapter
 
 Prisma will be used to communicate with the database. In order to configure
 NextAuth.js to use the Prisma adapter, we'll add: 
@@ -42,3 +45,102 @@ NextAuth.js to use the Prisma adapter, we'll add:
 We'll add the configuration code from the documentation.
 
 
+5) (client) Create the prisma folder in client and in it add the schema.prisma file
+
+We'll set the datasource provider to mongodb. We also need to make all
+the adjustments shown in the documentation that are necessary for prisma
+to work with a mongodb database.
+
+
+6) (client) Save the database connection string in env
+
+We get the connection string when we press the Connect button for our
+MongoDB cluster.
+
+
+7) (client) Generate the Prisma Client, then create a basic React component with a Sign In button and wrap the entire app in a SessionProvider
+
+We have to generate the Prisma Client using the 'npx prisma generate' command.
+This will structure the database according to the schema we created.
+
+In the index.tsx file we'll import two functions from next-auth/react: 
+- signIn - to easily sign in,
+- useSession - to easily access the signed-in user
+
+Next we'll temporarily add a Sign In button with an onClick event that 
+we'll use to sign in with Google.
+
+In order for the useSession hook to work, we must wrap the whole app in
+a SessionProvider.
+
+If you now hit the Sign In button, you should be able to log in with Google.
+
+Also, the team-builder database is now created in MongoDB because Prisma 
+communicated with it and created the database.
+
+
+8) (client) Add the Sign Out button
+
+Of the two buttons, Sign In and Sign Out, only one should be visible at
+any given time, depending on wether the user is logged in or not.
+
+
+9) (client) Set the NEXTAUTH_URL and NEXTAUTH_SECRET variables in env
+
+For development the NEXTAUTH_URL variable will be set to localhost.
+The NEXTAUTH_SECRET variable will be generated using a command delivered
+by NextAuth.
+
+
+10) (client) Install Chakra UI, wrap the application in the ChakraProvider and define the theme
+
+We're going to use a customized theme with Chakra. We'll define it in
+a new file called theme.ts inside of a new folder called chakra inside src.
+We'll leave just one brand color with the value from the Chakra documentation for now.
+
+
+11) (client) Customize the theme
+
+Globally add background color for the body element and color for the text.
+Add the theme to the ChakraProvider.
+
+
+12) (client) Enable server-side rendering to avoid the flickering when the page refreshes
+
+This technique will cause the pages to be pre-rendered on the server
+and then sent to the client. We have to use the getServerSideProps function
+This function will execute on the server.
+
+
+13) (client) Create an input element where the user can enter a username, country and city
+
+This will allow each user to log in using a different username than the one
+delivered from their Google account. They can also enter the country and city
+where they live so that it's easier to build a team in a given location.
+
+We're going to use the Box component from Chakra to this end. The Box will
+show a Panel component if the user is logged in or an Auth component
+otherwise. These two components will be defined too.
+
+In the src folder we'll add a components folder with a Panel and an Auth 
+subfolders in it.
+
+In order for this to work, we'll add a type declaration file and in it
+define the username, country and city properties for the user. As we're
+going to modify Session inside the next-auth library, we'll call the file
+next-auth.d.ts.
+
+
+14) (client) Set up Apollo GraphQL Client
+
+We need this to enable the client to communicate with the server.
+We'll use Apollo Client for the React app and Apollo Server for the
+backend. Let's start with the client.
+
+We also need to wrap the whole application in an ApolloProvider.
+
+
+15) (server) Set up Apollo GraphQL Server
+
+We need Apollo Server to make requests to. We'll start by initializing
+a Node.js project on the server.
