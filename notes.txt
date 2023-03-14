@@ -144,3 +144,22 @@ We also need to wrap the whole application in an ApolloProvider.
 
 We need Apollo Server to make requests to. We'll start by initializing
 a Node.js project on the server.
+
+
+16) Create the GraphQL schema
+
+Add a graphql folder in the server/src folder. Inside this folder create
+a typedefs folder and a resolvers folder, each with an index.ts file inside.
+Then we'll create a file for each type of entity that we'll be using, so let's
+start with user.ts in both typedefs and resolvers. Then everything will be 
+combined in the index.ts file.
+
+In the user.ts typeDefs file we'll define the User entity type, and also a
+Query and Mutation.
+
+Next, we'll create the user-related resolvers in the user.ts file inside
+resolvers.
+
+We're going to use the merge function from Lodash to merge all the resolvers.
+We'll do it like this because each resolver has repeating names: Query, Mutation,
+Subscription.
